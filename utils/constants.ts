@@ -1,7 +1,8 @@
 import path from 'path';
 
 export const pathNames = {
-  login: 'https://enotes.pointschool.ru/login'
+  login: 'https://enotes.pointschool.ru/login',
+  clear: 'https://enotes.pointschool.ru/basket/clear',
 }
 
 export const baseUrl = 'https://enotes.pointschool.ru';

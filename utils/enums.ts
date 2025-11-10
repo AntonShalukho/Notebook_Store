@@ -13,3 +13,15 @@ export enum Timeout {
   HUNDRED_TWENTY = 120000,
   HUNDRED_EIGHTY = 180000,
 }
+
+/**
+ * Disabled some item types since we want to test discount items
+ */
+export enum ItemTypes {
+  NOTEPAD = 'Записные книжки',
+  WEEKLIES = 'Еженедельники',
+  SPIRAL_NOTEBOOKS = 'Блокноты на спирали',
+  // MUSIC_NOTEBOOKS = 'Нотные тетради',
+  UNDATED_DIARIES = 'Недатированные ежедневники',
+  // NOTEBOOKS = 'Тетради',
+}

@@ -2,6 +2,8 @@ import { chromium } from "@playwright/test";
 import { Timeout } from "./utils/enums";
 import { login } from "./utils/login";
 import { baseUrl, globalSetupReportPath, storagePath } from "./utils/constants";
+import fs from 'fs/promises';
+import path from 'path';
 
 async function globalSetup() {
   const browser = await chromium.launch({
@@ -27,6 +29,20 @@ async function globalSetup() {
     await page.context().storageState({
       path: storagePath,
     });
+
+    const csrfToken = await page.getAttribute('meta[name="csrf-token"]', 'content');
+    if (!csrfToken) {
+      throw new Error("CSRF-token wasn't be found after authorization");
+    }
+
+    const storageState = await page.context().storageState();
+
+    await fs.mkdir(path.dirname(storagePath), { recursive: true });
+    await fs.writeFile(
+      storagePath,
+      JSON.stringify({ ...storageState, csrfToken }, null, 2),
+      'utf-8'
+    );
   } catch{
     await context.tracing.stop({
       path: globalSetupReportPath,
